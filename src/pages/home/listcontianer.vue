@@ -103,6 +103,7 @@
 <script>
 import { mapState } from "vuex";
 import { Swiper, Navigation, Pagination, Autoplay } from "swiper";
+
 Swiper.use([Navigation, Pagination, Autoplay]);
 export default {
   mounted() {
@@ -114,8 +115,11 @@ export default {
     })
   },
   watch: {
-    bannerList() {
-      var mySwiper = new Swiper(this.$refs.mySwiper, {
+    bannerList:{
+      handler(){
+      this.$nextTick(()=>{
+        console.log('123')
+        var mySwiper = new Swiper(this.$refs.mySwiper, {
         //设置轮播图防线
         direction: "horizontal",
         //开启循环模式
@@ -146,6 +150,8 @@ export default {
         //切换效果
         effect: "cube"
       });
+      })
+      }
     }
   }
 };

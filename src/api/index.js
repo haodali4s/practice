@@ -16,11 +16,7 @@ export const reqBannerList = () => mockRequests({ url: '/banner', method: 'get' 
 
 //获取Floor数据接口
 export const reqFloorList = ()=>mockRequests({url:'/floor',method:'get'});
-// //获取首页轮播图数据的接口
-// export const reqBannerList = () => mockRequests({ url: '/banner', method: 'get' });
 
-// //获取Floor数据接口
-// export const reqFloorList = ()=>mockRequests({url:'/floor',method:'get'});
 
 // //搜索模块的请求接口函数:
 // //将来根据不同的搜索条件,需要给服务器携带不同的参数
@@ -29,7 +25,7 @@ export const reqFloorList = ()=>mockRequests({url:'/floor',method:'get'});
 // //没有发现:
 // //第一步:整理搜索的参数
 // //第二步：根据最新的搜索参数，获取最新的数据展示!!
-// export const reqSearchList = (data)=>requests({url:'/list',method:'post',data})
+export const reqSearchList = (data)=>requests({url:'/list',method:'post',data})
 
 
 

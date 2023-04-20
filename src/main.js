@@ -7,7 +7,7 @@ Vue.component('typenav', typenav)
 import router from "@/router/router.js"
 import store from './store'
 import '@/mock/mockServe'
-import carousel from '@/components/carousel'
+import carousel from '@/components/carousel/carousel.vue'
 Vue.component('carousel', carousel)
 import "swiper/swiper-bundle.min.css";
 new Vue({

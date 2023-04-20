@@ -42,3 +42,5 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 >>>>>>> d8bcd987371e1887bfd91a9c934b9ba2dcdf2a8f
+
+git add node_modules\\@vue\\cli-service\\bin

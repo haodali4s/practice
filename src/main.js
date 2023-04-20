@@ -7,6 +7,7 @@ Vue.component('typenav', typenav)
 import router from "@/router/router.js"
 import store from './store'
 import '@/mock/mockServe'
+import "swiper/swiper-bundle.min.css";
 new Vue({
   render: h => h(App),
   router,

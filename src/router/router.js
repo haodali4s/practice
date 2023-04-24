@@ -3,6 +3,7 @@ import Vuerouter from "vue-router"
 Vue.use(Vuerouter)
 
 
+
 import Home from "@/pages/home/index.vue"
 import Login from "@/pages/login/index.vue"
 import Register from "@/pages/register/index.vue"
@@ -16,6 +17,7 @@ export default new Vuerouter({
         {
             path: '/home',
             component: Home,
+            name: 'home',
             meta: {
                 show: true
             }
@@ -35,10 +37,10 @@ export default new Vuerouter({
             }
         },
         {
-            path: '/search',
+            path: '/search/:keyword?',
             component: Search,
-           
-            name:'search',
+
+            name: 'search',
             meta: {
                 show: true
             }

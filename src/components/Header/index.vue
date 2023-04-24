@@ -1,120 +1,116 @@
 <template>
   <div>
     <header class="header">
-            <!-- 头部的第一行 -->
-            <div class="top">
-                <div class="container">
-                    <div class="loginList">
-                        <p>尚品汇欢迎您！</p>
-                        <p>
-                            <span>请</span>
-                            <a href="###">登录</a>
-                            <a href="###" class="register">免费注册</a>
-                        </p>
-                    </div>
-                    <div class="typeList">
-                        <a href="###">我的订单</a>
-                        <a href="###">我的购物车</a>
-                        <a href="###">我的尚品汇</a>
-                        <a href="###">尚品汇会员</a>
-                        <a href="###">企业采购</a>
-                        <a href="###">关注尚品汇</a>
-                        <a href="###">合作招商</a>
-                        <a href="###">商家后台</a>
-                    </div>
-                </div>
-            </div>
-            <!--头部第二行 搜索区域-->
-            <div class="bottom">
-                <h1 class="logoArea">
-                    <a class="logo" title="尚品汇" href="###" target="_blank">
-                        <img src="./images/logo.png" alt="">
-                    </a>
-                </h1>
-                <div class="searchArea">
-                    <form action="###" class="searchForm">
-                        <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword"/>
-                        <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
-                    </form>
-                </div>
-            </div>
-        </header>
+      <!-- 头部的第一行 -->
+      <div class="top">
+        <div class="container">
+          <div class="loginList">
+            <p>尚品汇欢迎您！</p>
+            <p>
+              <span>请</span>
+              <a href="###">登录</a>
+              <a href="###" class="register">免费注册</a>
+            </p>
+          </div>
+          <div class="typeList">
+            <a href="###">我的订单</a>
+            <a href="###">我的购物车</a>
+            <a href="###">我的尚品汇</a>
+            <a href="###">尚品汇会员</a>
+            <a href="###">企业采购</a>
+            <a href="###">关注尚品汇</a>
+            <a href="###">合作招商</a>
+            <a href="###">商家后台</a>
+          </div>
+        </div>
+      </div>
+      <!--头部第二行 搜索区域-->
+      <div class="bottom">
+        <h1 class="logoArea">
+          <a class="logo" title="尚品汇" href="###" target="_blank">
+            <img src="./images/logo.png" alt />
+          </a>
+        </h1>
+        <div class="searchArea">
+          <form action="###" class="searchForm">
+            <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
+            <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
+          </form>
+        </div>
+      </div>
+    </header>
   </div>
 </template>
 
 <script>
-
-
 export default {
   //给组件起一个名字,开发者工具中显示这个组件的时候，显示的就是这个名字
   name: "Header",
   data() {
     return {
-      keyword:''
-    }
+      keyword: ""
+    };
   },
-  
+
   methods: {
     //搜索按钮的回调
     goSearch() {
-      this.$router.push({name:'search',params:{keyword:this.keyword}})
       let locations = {
         name: "search",
-        params: { keyword: this.keyword || undefined },
+        params: { keyword: this.keyword || undefined }
       };
       //确定路径当中有query参数
       if (this.$route.query.categoryName) {
         locations.query = this.$route.query;
+        console.log(locations);
       }
-
       this.$router.push(locations);
-    },
-      // this.$router.push({path:'/search',query:{keyword:'123'}});
-      // this.$router.push('/search/dada');
-    },
-      //路由的跳转,采用的是编程式导航.
-      //路由传递参数
+      console.log("ok");
+    }
+    // this.$router.push({path:'/search',query:{keyword:'123'}});
+    // this.$router.push('/search/dada');
+  },
+  //路由的跳转,采用的是编程式导航.
+  //路由传递参数
 
-      //第一种传递query参数
-      // this.$router.push({path:'/search',query:{keyword:this.keyword}});
+  //第一种传递query参数
+  // this.$router.push({path:'/search',query:{keyword:this.keyword}});
 
-      //第二种传递params参数 [一定要注意,面试的时候经常问]
-      // this.$router.push({name:'search',params:{keyword:this.keyword}})
+  //第二种传递params参数 [一定要注意,面试的时候经常问]
+  // this.$router.push({name:'search',params:{keyword:this.keyword}})
 
-      //第三种传递query+params
-      // this.$router.push({
-      //   name: "search",
-      //   params: { keyword: this.keyword },
-      //   query: { keyword: "ABC" },
-      // });
+  //第三种传递query+params
+  // this.$router.push({
+  //   name: "search",
+  //   params: { keyword: this.keyword },
+  //   query: { keyword: "ABC" },
+  // });
 
-      //验证Vue-Router引入Promise技术,最笨的方法,给push传递第二个、第三个参数【回调函数】
-      //下面这种写法：治标不治本！！！！
-      // let result = this.$router.push({name: "search",params: { keyword: this.keyword|| undefined}},()=>{},()=>{});
+  //验证Vue-Router引入Promise技术,最笨的方法,给push传递第二个、第三个参数【回调函数】
+  //下面这种写法：治标不治本！！！！
+  // let result = this.$router.push({name: "search",params: { keyword: this.keyword|| undefined}},()=>{},()=>{});
 
-      //问题1:push方法,里面this是谁? vueRouter类的实例
-      // this.$router.push({name:'search',params:{keyword:this.keyword}});
-      //问题2:push方法里面的this是谁?windows
-      // let result = this.$router.push;
-      // result({name:'search',params:{keyword:this.keyword}})
+  //问题1:push方法,里面this是谁? vueRouter类的实例
+  // this.$router.push({name:'search',params:{keyword:this.keyword}});
+  //问题2:push方法里面的this是谁?windows
+  // let result = this.$router.push;
+  // result({name:'search',params:{keyword:this.keyword}})
 
-      //点击搜索按钮之前,如果路径当中有query参数,需要携带给search
+  //点击搜索按钮之前,如果路径当中有query参数,需要携带给search
 
-      
-    // //退出登录的按钮的回调
-    // logout(){
-    //    //派遣action退出登录
-    //    this.$store.dispatch('logout');
-    // }
+  // //退出登录的按钮的回调
+  // logout(){
+  //    //派遣action退出登录
+  //    this.$store.dispatch('logout');
+  // }
 
- 
   mounted() {
     //清除关键字
     this.$bus.$on("clearKeyword", () => {
       console.log(123);
       this.keyword = "";
     });
-  },
+  }
 };
 </script>
 

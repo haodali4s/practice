@@ -5,30 +5,30 @@
       <h2 class="all" @mouseenter="changeShow">全部商品分类</h2>
       <transition name="sort">
         <div class="sort" v-show="show">
-        <div class="all-sort-list2" @click="goSearch">
-          <div class="item" v-for="(a1,b) in categoryList" :key="a1.categoryId">
-            <h3 @mouseenter="getindex(b)" :class="{current:currentindex==b}">
-              <a  :data-categoryName="a1.categoryName" :data-category1Id="a1.categoryId">{{ a1.categoryName }}</a>
-            </h3>
-            <div class="item-list clearfix" :style="{display:currentindex==b?'block':'none'}">
-              <div class="subitem" v-for="(a2,b) in a1.categoryChild" :key="a2.categoryId">
-                <dl class="fore">
-                  <dt>
-                    <a  :data-categoryName="a1.categoryName" :data-category1Id="a1.categoryId">{{ a2.categoryName }}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="(a3,b) in a2.categoryChild" :key="a3.categoryId">
-                      <a :data-categoryName="a1.categoryName" :data-category1Id="a1.categoryId">{{ a3.categoryName }}</a>
-                    </em>
-                  </dd>
-                </dl>
+          <div class="all-sort-list2" @click="goSearch">
+            <div class="item" v-for="(a1,b) in categoryList" :key="a1.categoryId">
+              <h3 @mouseenter="getindex(b)" :class="{current:currentindex==b}">
+                <a :data-categoryName="a1.categoryName" :data-category1Id="a1.categoryId">{{ a1.categoryName }}</a>
+              </h3>
+              <div class="item-list clearfix" :style="{display:currentindex==b?'block':'none'}">
+                <div class="subitem" v-for="(a2,b) in a1.categoryChild" :key="a2.categoryId">
+                  <dl class="fore">
+                    <dt>
+                      <a :data-categoryName="a2.categoryName" :data-category2Id="a2.categoryId">{{ a2.categoryName }}</a>
+                    </dt>
+                    <dd>
+                      <em v-for="(a3,b) in a2.categoryChild" :key="a3.categoryId">
+                        <a :data-categoryName="a3.categoryName" :data-category3Id="a3.categoryId">{{ a3.categoryName }}</a>
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </transition>
-      
+
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -60,7 +60,7 @@ export default {
       //第一个问题:div父节点子元素太多【h3、h2、em、dt、dd、dl...a】？你怎么知道你点击的一定是a
       //第二个问题:要区分一级分类、二级分类、三级分类的a标签【category1Id|category2Id|category2Id】
       let targetNode = event.target;
-      console.log(targetNode);
+
       //获取触发事件节点的自定义属性【a:data-categoryName】
       let {
         categoryname,
@@ -85,6 +85,7 @@ export default {
           //三级分类的a
           locations.query.category3Id = category3id;
         }
+
         //点击商品分类按钮的时候,如果路径当中携带params参数,需要合并携带给search模块
         /*<!-- if (this.$route.params.keyword) {
           locations.params = this.$route.params;
@@ -94,6 +95,7 @@ export default {
           locations.params = this.$route.params;
         }
         this.$router.push(locations);
+        this.show = false;
       }
     },
     delindex() {
@@ -107,7 +109,12 @@ export default {
       if (this.$route.path != "/home") {
         this.show = true;
       }
-    },
+    }
+  },
+  mounted() {
+    if (this.$route.path != "/home") {
+      this.show = false;
+    }
   },
   data() {
     return {
@@ -115,7 +122,7 @@ export default {
       show: true
     };
   },
- 
+
   computed: {
     ...mapState({
       categoryList: state => state.home.category
@@ -155,6 +162,13 @@ export default {
       }
     }
 
+    a {
+              color: #333;
+              &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+              }
+            }
     .sort {
       position: absolute;
       left: 0;
@@ -175,13 +189,7 @@ export default {
             padding: 0 20px;
             margin: 0;
 
-            a {
-              color: #333;
-              &:hover {
-                cursor: pointer;
-                text-decoration: underline;
-              }
-            }
+            
 
             &.active {
               background: yellowgreen;
@@ -263,7 +271,6 @@ export default {
     .sort-enter-active {
       transition: all 0.5s linear;
     }
-   
   }
 }
 </style>

@@ -18,13 +18,23 @@
             </li>
             <!-- 关键字面包屑的地方 -->
             <li class="with-x" v-show="searchParams.keyword">
-              {{ searchParams.keyword }}<i @click="removeKeyword">×</i>
+              {{ searchParams.keyword }}
+              <i @click="removeKeyword">×</i>
+            </li>
+            <li class="with-x" v-show="searchParams.trademark">
+              {{ searchParams.trademark.split(":")[1]
+              }}
+              <i @click="removeTradeMark">×</i>
+            </li>
+            <li class="with-x" v-for="(attrValue, index) in searchParams.props" :key="index">
+              {{ attrValue.split(":")[1] }}
+              <i @click="removeAttr(index)">×</i>
             </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector @getTradeMark="getTradeMark" @getAttrAndAttrValue="getAttrAndAttrValue" />
 
         <!--details-->
         <div class="details clearfix">
@@ -77,11 +87,7 @@
                     </i>
                   </div>
                   <div class="operate">
-                    <a
-                      href="success-cart.html"
-                      target="_blank"
-                      class="sui-btn btn-bordered btn-danger"
-                    >加入购物车</a>
+                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
@@ -165,7 +171,7 @@ export default {
       this.searchParams.categoryName = "";
       //骚操作:路由自己跳自己
       this.$router.push({ name: "search", params: this.$route.params });
-  
+
       //为什么这里没有调用发请求函数？
     },
     //面包屑移出关键字的回调
@@ -177,7 +183,36 @@ export default {
       //通知兄弟组件清除关键字
       this.$bus.$emit("clearKeyword");
       //为什么这里没有调用发请求函数？
-    }
+    },
+    getTradeMark(tmId, tmName) {
+      //整理品牌相关的搜索条件
+      this.searchParams.trademark = `${tmId}:${tmName}`;
+      //再次发请求即可
+      this.getData();
+    },
+    removeTradeMark() {
+      //清空品牌的搜索条件
+      this.searchParams.trademark = "";
+      //再次发请求获取最新的数据展示
+      this.getData();
+    },
+    getAttrAndAttrValue(attrId, attrName, attrValue) {
+      //整理最新的搜索的条件
+      //整理为字符串
+      let newProps = `${attrId}:${attrValue}:${attrName}`;
+
+      if (this.searchParams.props.indexOf(newProps) == -1) {
+        this.searchParams.props.push(newProps);
+        //再次发请求，获取最新的数据展示即可
+        this.getData();
+      }
+    },
+    removeAttr(index) {
+      //删除对应的数组里面元素
+      this.searchParams.props.splice(index, 1);
+      //在发一次请求
+      this.getData();
+    },
   },
   beforeMount() {
     Object.assign(this.searchParams, this.$route.query, this.$route.params);

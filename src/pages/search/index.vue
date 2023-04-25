@@ -11,18 +11,14 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">
-              iphone
-              <i>×</i>
+            <li class="with-x" v-show="searchParams.categoryName">
+              {{ searchParams.categoryName
+              }}
+              <i @click="removeCategoryName">×</i>
             </li>
-            <li class="with-x">
-              华为
-              <i>×</i>
-            </li>
-            <li class="with-x">
-              OPPO
-              <i>×</i>
+            <!-- 关键字面包屑的地方 -->
+            <li class="with-x" v-show="searchParams.keyword">
+              {{ searchParams.keyword }}<i @click="removeKeyword">×</i>
             </li>
           </ul>
         </div>
@@ -81,7 +77,11 @@
                     </i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                    <a
+                      href="success-cart.html"
+                      target="_blank"
+                      class="sui-btn btn-bordered btn-danger"
+                    >加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
@@ -159,6 +159,24 @@ export default {
     getData() {
       //通知Vuex发请求、仓库存储数据
       this.$store.dispatch("getSearchList", this.searchParams);
+    },
+    removeCategoryName() {
+      //搜索条件商品名字清空
+      this.searchParams.categoryName = "";
+      //骚操作:路由自己跳自己
+      this.$router.push({ name: "search", params: this.$route.params });
+  
+      //为什么这里没有调用发请求函数？
+    },
+    //面包屑移出关键字的回调
+    removeKeyword() {
+      //清空关键字
+      this.searchParams.keyword = "";
+      //修改URL
+      this.$router.push({ name: "search", query: this.$route.query });
+      //通知兄弟组件清除关键字
+      this.$bus.$emit("clearKeyword");
+      //为什么这里没有调用发请求函数？
     }
   },
   beforeMount() {

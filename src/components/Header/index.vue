@@ -65,7 +65,7 @@ export default {
         console.log(locations);
       }
       this.$router.push(locations);
-      console.log("ok");
+     
     }
     // this.$router.push({path:'/search',query:{keyword:'123'}});
     // this.$router.push('/search/dada');

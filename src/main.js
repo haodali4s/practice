@@ -11,7 +11,11 @@ import carousel from '@/components/carousel/carousel.vue'
 Vue.component('carousel', carousel)
 import "swiper/swiper-bundle.min.css";
 new Vue({
+  
   render: h => h(App),
+  beforeCreate(){
+    Vue.prototype.$bus=this
+  },
   router,
   store
 }).$mount('#app')

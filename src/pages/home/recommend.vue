@@ -27,12 +27,13 @@
 
 <script>
 export default {
-  name: "",
+  name: ""
 };
 </script>
 
 <style scoped lang="less">
 .today-recommend {
+  margin-top: 60px;
   .py-container {
     width: 1200px;
     margin: 0 auto;

@@ -163,12 +163,12 @@ export default {
     }
 
     a {
-              color: #333;
-              &:hover {
-                cursor: pointer;
-                text-decoration: underline;
-              }
-            }
+      color: #333;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
     .sort {
       position: absolute;
       left: 0;
@@ -188,8 +188,6 @@ export default {
             overflow: hidden;
             padding: 0 20px;
             margin: 0;
-
-            
 
             &.active {
               background: yellowgreen;

@@ -41,23 +41,12 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
-                </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li v-for="(item,index) in head" :key="index" @mouseover="getindex(index)" :class="{active:currentindex==index}" @mouseleave="deindex()" @click="sort(index)">
+                  <a href="#">
+                    {{item}}
+                    <span v-show="direction==1">↓</span>
+                    <span v-show="direction==-1">↑</span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -136,6 +125,7 @@
 <script>
 import SearchSelector from "./SearchSelector/SearchSelector";
 import { mapGetters } from "vuex";
+import throttle from "lodash/throttle";
 export default {
   name: "Search",
   data() {
@@ -152,7 +142,10 @@ export default {
         order: "1:desc", //排序的参数 【默认初始值:1:desc】
         pageNo: 1, //当前分页器的页码  【默认初始值:1】
         pageSize: 10 //代表当前一页显示几条数据 【默认初始值:10】
-      }
+      },
+      head: ["综合", "价格", "新品", "销量"],
+      currentindex: 0,
+      direction: 1
     };
   },
   computed: {
@@ -162,6 +155,17 @@ export default {
     SearchSelector
   },
   methods: {
+    getindex: throttle(function(index) {
+      //修改响应式数据
+      this.currentindex = index;
+      //鼠标进入事件,假如用户的行为过快,会导致项目业务丢失【里面业务有很多，可能出现卡顿现象】。
+      //一句话：用户行为过快,浏览器反应不过来,导致业务丢失!!!!
+      //函数的防抖与节流技术
+      // console.log("处理业务" + index);
+    }, 10),
+    deindex() {
+      this.currentindex = -1;
+    },
     getData() {
       //通知Vuex发请求、仓库存储数据
       this.$store.dispatch("getSearchList", this.searchParams);
@@ -213,6 +217,17 @@ export default {
       //在发一次请求
       this.getData();
     },
+    sort(index) {
+      this.direction = -this.direction;
+      let order = this.searchParams.order.split(":")[1];
+      if (order == "desc") {
+        order = "asc";
+      } else {
+        order = "desc";
+      }
+      this.searchParams.order = index + 1 + ":" + order;
+      this.getData();
+    }
   },
   beforeMount() {
     Object.assign(this.searchParams, this.$route.query, this.$route.params);
@@ -220,6 +235,7 @@ export default {
   mounted() {
     this.$store.dispatch("getSearchList", this.searchParams);
   },
+
   watch: {
     //监听组件VC的$route属性
     //$route:{},应该用深度监听呀?
@@ -230,7 +246,8 @@ export default {
       // this.searchParams.category2Id = this.$route.query.category2Id;
       // this.searchParams.category3Id = this.$route.query.category3Id;
       // this.searchParams.categoryName = this.$route.query.categoryName;
-      console.log("123");
+      this.currentindex = 0;
+
       //先把用户前面存储的1|2|3级别ID清除
       //发ajax的时候,属性值为undefind,甚至参数K都不携带了【10个搜索条件,可有可无的】
       this.searchParams.category1Id = undefined;

@@ -41,8 +41,15 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li v-for="(item,index) in head" :key="index" @mouseover="getindex(index)" :class="{active:currentindex==index}" @mouseleave="deindex()" @click="sort(index)">
-                  <a href="#">
+                <li
+                  v-for="(item,index) in head"
+                  :key="index"
+                  @mouseover="getindex(index)"
+                  :class="{active:currentindex==index}"
+                  @mouseleave="deindex()"
+                  @click="sort(index)"
+                >
+                  <a>
                     {{item}}
                     <span v-show="direction==1">↓</span>
                     <span v-show="direction==-1">↑</span>
@@ -76,7 +83,11 @@
                     </i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                    <a
+                      href="success-cart.html"
+                      target="_blank"
+                      class="sui-btn btn-bordered btn-danger"
+                    >加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
@@ -84,37 +95,13 @@
             </ul>
           </div>
           <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted">
-                  <span>...</span>
-                </li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div>
-                <span>共10页&nbsp;</span>
-              </div>
-            </div>
+            <pagination
+              :total="total"
+              :pageSize="searchParams.pageSize"
+              :pageNo="searchParams.pageNo"
+              :pagerCount="5"
+              @currentPage="currentPage"
+            ></pagination>
           </div>
         </div>
       </div>
@@ -124,7 +111,7 @@
 
 <script>
 import SearchSelector from "./SearchSelector/SearchSelector";
-import { mapGetters } from "vuex";
+import { mapGetters,mapState} from "vuex";
 import throttle from "lodash/throttle";
 export default {
   name: "Search",
@@ -141,7 +128,7 @@ export default {
         trademark: "", //品牌的搜索条件
         order: "1:desc", //排序的参数 【默认初始值:1:desc】
         pageNo: 1, //当前分页器的页码  【默认初始值:1】
-        pageSize: 10 //代表当前一页显示几条数据 【默认初始值:10】
+        pageSize: 5 //代表当前一页显示几条数据 【默认初始值:10】
       },
       head: ["综合", "价格", "新品", "销量"],
       currentindex: 0,
@@ -149,7 +136,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["goodsList"])
+    ...mapGetters(["goodsList"]),
+    ...mapState({
+       total:state=>state.search.searchList.total
+    }),
   },
   components: {
     SearchSelector
@@ -227,6 +217,12 @@ export default {
       }
       this.searchParams.order = index + 1 + ":" + order;
       this.getData();
+    },
+    currentPage(page){
+      console.log(page)
+      this.searchParams.pageNo=page
+      this.getData()
+
     }
   },
   beforeMount() {
@@ -509,8 +505,9 @@ export default {
         width: 733px;
         height: 66px;
         overflow: hidden;
-        float: right;
-
+        margin:0 auto;
+        text-align: center;
+        position: relative;
         .sui-pagination {
           margin: 18px 0;
 

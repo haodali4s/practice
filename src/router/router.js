@@ -8,6 +8,7 @@ import Home from "@/pages/home/index.vue"
 import Login from "@/pages/login/index.vue"
 import Register from "@/pages/register/index.vue"
 import Search from "@/pages/search/index.vue"
+import Detail from "@/pages/detail/index.vue"
 export default new Vuerouter({
     routes: [
         {
@@ -41,6 +42,15 @@ export default new Vuerouter({
             component: Search,
 
             name: 'search',
+            meta: {
+                show: true
+            }
+        },
+        {
+            path: '/detail:spid',
+            component: Detail,
+
+            name: 'detail',
             meta: {
                 show: true
             }

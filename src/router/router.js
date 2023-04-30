@@ -47,7 +47,7 @@ export default new Vuerouter({
             }
         },
         {
-            path: '/detail:spid',
+            path: '/detail/:spid',
             component: Detail,
 
             name: 'detail',
@@ -55,7 +55,10 @@ export default new Vuerouter({
                 show: true
             }
         },
-    ]
+    ],
+    scrollBehavior(){
+        return {x:0,y:0}
+    }
 
 })
 

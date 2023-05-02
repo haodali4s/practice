@@ -1,6 +1,7 @@
 //统一管理项目前部的接口
-import requests from "./requests";
+import {requests,requestsme} from "./requests";
 import mockRequests from './mockRequests';
+import axios from "axios";
 // import mockRequests from './mockRequests';
 // //封装函数:复用
 // //将来这个函数可以在别的地方使用,需要对外暴露【分别暴露】
@@ -30,7 +31,8 @@ export const reqSearchList = (data)=>requests({url:'/list',method:'post',data})
 
 
 // //详情模块商品的数据
-// export const reqDetailList = (skuId)=>requests({url:`/item/${skuId}`,method:'get'});
+export const reqDetailList = (skuId)=>
+   requestsme({url:`/item/${skuId}`,method:'get'});
 
 
 // //加入购物车|将来修改商品个数的接口

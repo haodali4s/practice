@@ -1,25 +1,25 @@
 <template>
   <div class="detail">
     <!-- 商品分类导航 -->
-    <TypeNav />
+    <typenav></typenav>
 
     <!-- 主要内容区域 -->
     <section class="con">
       <!-- 导航路径区域:面包屑 -->
       <div class="conPoin">
         <!-- 程序的警告:categoryView是undefined,它是vuex给的 -->
-        <span>{{ categoryView.category1Name }}</span>
-        <span>{{ categoryView.category2Name }}</span>
-        <span>{{ categoryView.category3Name }}</span>
+        <span v-show="categoryView.category1Name">{{ categoryView.category1Name }}</span>
+        <span v-show="categoryView.category2Name">{{ categoryView.category2Name }}</span>
+        <span v-show="categoryView.category3Name">{{ categoryView.category3Name }}</span>
       </div>
       <!-- 主要内容区域 -->
       <div class="mainCon">
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom />
+          <Zoom :list="skuInfo.skuImageList"></Zoom>
           <!-- 小图列表 -->
-          <ImageList />
+          <ImageList></ImageList>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -373,63 +373,63 @@ export default {
   },
   mounted() {
     //派发action:详情模块发请求需要携带商品的id
-    this.$store.dispatch("getDetailInfo", this.$route.params.skuId);
-    console.log("我是详情页的mounted,发请求获取详情的数据");
+    this.$store.dispatch("getDetailInfo", this.$route.params.spid);
+    
   },
   computed: {
     ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
   },
-  methods: {
-    changeChecked(saleAttrValue, arr) {
-      console.log(this.skuInfo);
-      //响应式数据:对象、数组
-      //数组的响应式数据:变更、替换【基本类型数据、引用类型对象响应式的】
-      //数组里面是基本类型数据：替换、变更    如果对象，不管你怎么玩都是相应的!!!!
-      //排他操作
-      //底下的代码:修改数组里面的对象【相应的式的】,数据变化视图跟这变化！！！
-      arr.forEach((item) => {
-        item.isChecked = "0";
-      });
-      saleAttrValue.isChecked = "1";
-    },
-    //数量的表单元素的change回调
-    handler(e) {
-      //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
-      let value = e.target.value * 1;
-      //用户输入进来非法情况判断
-      if (isNaN(value) || value < 1) {
-        this.skuNum = 1;
-      } else {
-        //正常情况
-        this.skuNum = parseInt(value);
-      }
-    },
-    //加入购物车按钮
-    async addOrUpdateCart() {
-      //派发action:携带的载荷，分别商品的id、商品个数
-      //思考底下的这行代码实质做了一个什么事情?
-      //实质就是调用了小仓库里面相应的这个函数->addOrUpdateCart,声明部分加上asyc,这个函数执行的结构一定是Promise
-      //返回结果是一个Promise对象【三种状态:pending、成功、失败】，返回状态到底是什么，取决于这个函数addOrUpdateCart返回结果
-      try {
-        //成功干什么
-        await this.$store.dispatch("addOrUpdateCart", {
-          skuId: this.$route.params.skuId,
-          skuNum: this.skuNum,
-        });
-        //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
-        //浏览器存储功能，在路由跳转在之前，存储到浏览器中
-        sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo));
-        //路由跳转
-        this.$router.push({
-          path: "/addcartsuccess",
-          query: { skuNum: this.skuNum},
-        });
-      } catch (error) {
-        //失败干什么
-        alert("加入购物车失败");
-      }
-    },
-  },
+  // methods: {
+  //   changeChecked(saleAttrValue, arr) {
+  //     console.log(this.skuInfo);
+  //     //响应式数据:对象、数组
+  //     //数组的响应式数据:变更、替换【基本类型数据、引用类型对象响应式的】
+  //     //数组里面是基本类型数据：替换、变更    如果对象，不管你怎么玩都是相应的!!!!
+  //     //排他操作
+  //     //底下的代码:修改数组里面的对象【相应的式的】,数据变化视图跟这变化！！！
+  //     arr.forEach((item) => {
+  //       item.isChecked = "0";
+  //     });
+  //     saleAttrValue.isChecked = "1";
+  //   },
+  //   //数量的表单元素的change回调
+  //   handler(e) {
+  //     //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
+  //     let value = e.target.value * 1;
+  //     //用户输入进来非法情况判断
+  //     if (isNaN(value) || value < 1) {
+  //       this.skuNum = 1;
+  //     } else {
+  //       //正常情况
+  //       this.skuNum = parseInt(value);
+  //     }
+  //   },
+  //   //加入购物车按钮
+  //   async addOrUpdateCart() {
+  //     //派发action:携带的载荷，分别商品的id、商品个数
+  //     //思考底下的这行代码实质做了一个什么事情?
+  //     //实质就是调用了小仓库里面相应的这个函数->addOrUpdateCart,声明部分加上asyc,这个函数执行的结构一定是Promise
+  //     //返回结果是一个Promise对象【三种状态:pending、成功、失败】，返回状态到底是什么，取决于这个函数addOrUpdateCart返回结果
+  //     try {
+  //       //成功干什么
+  //       await this.$store.dispatch("addOrUpdateCart", {
+  //         skuId: this.$route.params.skuId,
+  //         skuNum: this.skuNum,
+  //       });
+  //       //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
+  //       //浏览器存储功能，在路由跳转在之前，存储到浏览器中
+  //       sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo));
+  //       //路由跳转
+  //       this.$router.push({
+  //         path: "/addcartsuccess",
+  //         query: { skuNum: this.skuNum},
+  //       });
+  //     } catch (error) {
+  //       //失败干什么
+  //       alert("加入购物车失败");
+  //     }
+  //   },
+  // },
 };
 </script>
 

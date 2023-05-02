@@ -1,34 +1,45 @@
 <template>
   <div class="spec-preview">
-    <img :src="bigObj.imgUrl" />
+    <img v-for="(item,index) in list" :key="index" :src="item.imgUrl" />
+    <div v-for="(item,index) in list" :key="index">{{item.id }}</div>
     <!-- 绑定鼠标移动事件 -->
     <div class="event" @mousemove="handler"></div>
     <div class="big">
-      <img :src="bigObj.imgUrl" ref="big" />
+      <img  ref="big" />
     </div>
     <div class="mask" ref="mask"></div>
   </div>
 </template>
-
+ 
 <script>
 import { mapGetters } from "vuex";
 export default {
   name: "Zoom",
+  props:['list'],
   data(){
     return {
       index:0
     }
   },
-  computed: {
-    ...mapGetters(["skuInfo"]),
-    //比如:服务器的数据没有回来,skuInfo空对象,如果空对象.skuImageList->undefined
-    skuImageList() {
-      return this.skuInfo.skuImageList || [];
-    },
-    bigObj() {
-      return this.skuImageList[this.index] || {};
-    },
+  watch:{
+    list:{
+      immediate:true,
+      handler(){
+        this.$nextTick(()=>{    console.log(this.list)})
+    
+      }
+    }
   },
+  // computed: {
+  //   ...mapGetters(["skuInfo"]),
+  //   //比如:服务器的数据没有回来,skuInfo空对象,如果空对象.skuImageList->undefined
+  //   skuImageList() {
+  //     return this.skuInfo.skuImageList || [];
+  //   },
+  //   bigObj() {
+  //     return this.skuImageList[this.index] || {};
+  //   },
+  // },
   methods: {
     handler(e) {
       //获取蒙板

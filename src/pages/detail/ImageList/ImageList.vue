@@ -1,8 +1,8 @@
 <template>
-  <div class="swiper-container" ref="cur">
+  <div class="swiper" ref="cur">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" v-for="(slide, index) in skuInfo.skuImageList" :key="index">
-        <img :src="slide.imgUrl" :class="{ active: currentIndex == index }" @click="handler(index)" />
+      <div class="swiper-slide" v-for="(slide, index) in list" :key="index">
+        <img :src="slide.imgUrl" :class="{ active: currentIndex == index }" @mouseover="getindex(index)" />
       </div>
     </div>
     <div class="swiper-button-next" @click="add"></div>
@@ -11,66 +11,48 @@
 </template>
 
 <script>
-import Swiper from "swiper";
-
+import { Swiper, Navigation, Pagination, Autoplay } from "swiper";
+import throttle from "lodash/throttle";
 import { mapGetters } from "vuex";
 export default {
   name: "ImageList",
+  props: ["list"],
   data() {
     return {
       //控制小图类名的索引值
-      currentIndex: 0
+      currentIndex: -1
     };
   },
-  computed: {
-    ...mapGetters(["skuInfo"])
-  },
-  watch: {
-    skuInfo() {
-      //保证数据发生修改,页面结构再次渲染完毕。在初始化Swiper实例
-      this.$nextTick(() => {
-        //初始化Swiper类的实例
-        var mySwiper = new Swiper(this.$refs.cur, {
-          //设置轮播图防线
-          direction: "horizontal",
-          // loop:true,
-          // 如果需要前进后退按钮
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev"
-          },
-          //展示区域同时展示三张图片
-          slidesPerView: 2
-        });
-      });
-    }
-  },
   methods: {
+    getindex: throttle(function(index) {
+      //修改响应式数据
+      this.currentindex = index;
+      console.log(this.currentindex, index);
+      // this.$bus.$emit("sendIndex", index);
+      //鼠标进入事件,假如用户的行为过快,会导致项目业务丢失【里面业务有很多，可能出现卡顿现象】。
+      //一句话：用户行为过快,浏览器反应不过来,导致业务丢失!!!!
+      //函数的防抖与节流技术
+      // console.log("处理业务" + index);
+    }, 10)
     //小图的点击事件
-    handler(index) {
-      //修改响应式数据存储当前用户点击的索引值
-      this.currentIndex = index;
-      //全局事件总线，通知兄弟当前图片的索引值
-      this.$bus.$emit("sendIndex", index);
-    },
-    minus() {
-      this.currentIndex--;
-      if (this.currentIndex <= 0) this.currentIndex = 0;
-      this.$bus.$emit("sendIndex", this.currentIndex);
-    },
-    add() {
-      this.currentIndex++;
-      if (this.currentIndex >= this.skuInfo.skuImageList.length - 1) {
-        this.currentIndex = this.skuInfo.skuImageList.length - 1;
-      }
-      this.$bus.$emit("sendIndex", this.currentIndex);
-    }
+    // minus() {
+    //   this.currentIndex--;
+    //   if (this.currentIndex <= 0) this.currentIndex = 0;
+    //   this.$bus.$emit("sendIndex", this.currentIndex);
+    // },
+    // add() {
+    //   this.currentIndex++;
+    //   if (this.currentIndex >= this.skuInfo.skuImageList.length - 1) {
+    //     this.currentIndex = this.skuInfo.skuImageList.length - 1;
+    //   }
+    //   this.$bus.$emit("sendIndex", this.currentIndex);
+    // }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.swiper-container {
+.swiper {
   height: 56px;
   width: 412px;
   box-sizing: border-box;
@@ -92,6 +74,7 @@ export default {
       &.active {
         border: 2px solid #f60;
         padding: 1px;
+        cursor: pointer;
       }
     }
   }

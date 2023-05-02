@@ -1,11 +1,10 @@
 <template>
   <div class="spec-preview">
-    <img v-for="(item,index) in list" :key="index" :src="item.imgUrl" />
-    <div v-for="(item,index) in list" :key="index">{{item.id }}</div>
+    <img :src="list[0].imgUrl" />
     <!-- 绑定鼠标移动事件 -->
     <div class="event" @mousemove="handler"></div>
     <div class="big">
-      <img  ref="big" />
+      <img :src="list[0].imgUrl" ref="big" />
     </div>
     <div class="mask" ref="mask"></div>
   </div>
@@ -15,21 +14,13 @@
 import { mapGetters } from "vuex";
 export default {
   name: "Zoom",
-  props:['list'],
-  data(){
+
+  data() {
     return {
-      index:0
-    }
+      index: 0
+    };
   },
-  watch:{
-    list:{
-      immediate:true,
-      handler(){
-        this.$nextTick(()=>{    console.log(this.list)})
-    
-      }
-    }
-  },
+  props: ["list"],
   // computed: {
   //   ...mapGetters(["skuInfo"]),
   //   //比如:服务器的数据没有回来,skuInfo空对象,如果空对象.skuImageList->undefined
@@ -57,13 +48,14 @@ export default {
       mask.style.top = t + "px";
       big.style.left = -2 * l + "px";
       big.style.top = -2 * t + "px";
-    },
+    }
   },
-  mounted(){
+
+  mounted() {
     //接受兄弟组件传递过来的索引值
-    this.$bus.$on('sendIndex',(index)=>{
-        this.index = index;
-    })
+    this.$bus.$on("sendIndex", index => {
+      this.index = index;
+    });
   }
 };
 </script>

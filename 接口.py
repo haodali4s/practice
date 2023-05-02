@@ -90,13 +90,29 @@ item={
             "isSale": 1,
             "skuImageList": [
                 {
-                    "id": 6,
-                    "skuId": 2,
+                    "id": 1,
+                    "skuId": 1,
                     "imgName": "63e862164165f483.jpg",
-                    "imgUrl": "../images/s1.png",
+                    "imgUrl": "/images/s1.png",
+                    "spuImgId": 1,
+                    "isDefault": "0"
+                },
+                {
+                    "id": 2,
+                    "skuId": 2,
+                    "imgName": "63e862164165f484.jpg",
+                    "imgUrl": "/images/s2.png",
                     "spuImgId": 2,
                     "isDefault": "0"
                 },
+                {
+                    "id": 3,
+                    "skuId": 3,
+                    "imgName": "63e862164165f484.jpg",
+                    "imgUrl": "/images/s3.png",
+                    "spuImgId": 3,
+                    "isDefault": "0"
+                }
 
             ],
             "skuAttrValueList": [

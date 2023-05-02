@@ -41,14 +41,7 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li
-                  v-for="(item,index) in head"
-                  :key="index"
-                  @mouseover="getindex(index)"
-                  :class="{active:currentindex==index}"
-                  @mouseleave="deindex()"
-                  @click="sort(index)"
-                >
+                <li v-for="(item,index) in head" :key="index" @mouseover="getindex(index)" :class="{active:currentindex==index}" @mouseleave="deindex()" @click="sort(index)">
                   <a>
                     {{item}}
                     <span v-show="direction==1">↓</span>
@@ -63,9 +56,9 @@
               <li class="yui3-u-1-5" v-for="(good, index) in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <router-link :to="`/detail/${good.id}`"> <img :src="good.defaultImg" /></router-link>
-                     
-                   
+                    <router-link :to="`/detail/${good.id}`">
+                      <img :src="good.defaultImg" />
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -83,11 +76,7 @@
                     </i>
                   </div>
                   <div class="operate">
-                    <a
-                      href="success-cart.html"
-                      target="_blank"
-                      class="sui-btn btn-bordered btn-danger"
-                    >加入购物车</a>
+                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
@@ -95,13 +84,7 @@
             </ul>
           </div>
           <div class="fr page">
-            <pagination
-              :total="total"
-              :pageSize="searchParams.pageSize"
-              :pageNo="searchParams.pageNo"
-              :pagerCount="5"
-              @currentPage="currentPage"
-            ></pagination>
+            <pagination :total="total" :pageSize="searchParams.pageSize" :pageNo="searchParams.pageNo" :pagerCount="5" @currentPage="currentPage"></pagination>
           </div>
         </div>
       </div>
@@ -111,7 +94,7 @@
 
 <script>
 import SearchSelector from "./SearchSelector/SearchSelector";
-import { mapGetters,mapState} from "vuex";
+import { mapGetters, mapState } from "vuex";
 import throttle from "lodash/throttle";
 export default {
   name: "Search",
@@ -138,8 +121,8 @@ export default {
   computed: {
     ...mapGetters(["goodsList"]),
     ...mapState({
-       total:state=>state.search.searchList.total
-    }),
+      total: state => state.search.searchList.total
+    })
   },
   components: {
     SearchSelector
@@ -218,11 +201,10 @@ export default {
       this.searchParams.order = index + 1 + ":" + order;
       this.getData();
     },
-    currentPage(page){
-      console.log(page)
-      this.searchParams.pageNo=page
-      this.getData()
-
+    currentPage(page) {
+      console.log(page);
+      this.searchParams.pageNo = page;
+      this.getData();
     }
   },
   beforeMount() {
@@ -505,7 +487,7 @@ export default {
         width: 733px;
         height: 66px;
         overflow: hidden;
-        margin:0 auto;
+        margin: 0 auto;
         text-align: center;
         position: relative;
         .sui-pagination {

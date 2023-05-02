@@ -17,24 +17,18 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom :list="skuInfo.skuImageList"></Zoom>
+          <Zoom :list="skuInfo.skuImageList" v-if="skuInfo.skuImageList!=null"></Zoom>
           <!-- 小图列表 -->
-          <ImageList></ImageList>
+          <ImageList :list="skuInfo.skuImageList" v-if="skuInfo.skuImageList!=null"></ImageList>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
           <div class="goodsDetail">
-            <h3 class="InfoName">
-              {{ skuInfo.skuName }}
-            </h3>
-            <p class="news">
-              {{ skuInfo.skuDesc }}
-            </p>
+            <h3 class="InfoName">{{ skuInfo.skuName }}</h3>
+            <p class="news">{{ skuInfo.skuDesc }}</p>
             <div class="priceArea">
               <div class="priceArea1">
-                <div class="title">
-                  价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格
-                </div>
+                <div class="title">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</div>
                 <div class="price">
                   <i>¥</i>
                   <em>{{ skuInfo.price }}</em>
@@ -58,12 +52,8 @@
             </div>
             <div class="support">
               <div class="supportArea">
-                <div class="title">
-                  支&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;持
-                </div>
-                <div class="fixWidth">
-                  以旧换新，闲置手机回收 4G套餐超值抢 礼品购
-                </div>
+                <div class="title">支&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;持</div>
+                <div class="fixWidth">以旧换新，闲置手机回收 4G套餐超值抢 礼品购</div>
               </div>
               <div class="supportArea">
                 <div class="title">配 送 至</div>
@@ -76,10 +66,7 @@
             <div class="chooseArea">
               <div class="choosed"></div>
               <!--这里是商品销售属性的地方-->
-              <dl
-                v-for="(saleAttr, index) in spuSaleAttrList"
-                :key="saleAttr.id"
-              >
+              <dl v-for="(saleAttr, index) in spuSaleAttrList" :key="saleAttr.id">
                 <dt class="title">{{ saleAttr.saleAttrName }}</dt>
                 <!--每一个销售属性的属性值的地方-->
                 <dd
@@ -92,27 +79,15 @@
                   @click="
                     changeChecked(saleAttrValue, saleAttr.spuSaleAttrValueList)
                   "
-                >
-                  {{ saleAttrValue.saleAttrValueName }}
-                </dd>
+                >{{ saleAttrValue.saleAttrValueName }}</dd>
               </dl>
             </div>
             <div class="cartWrap">
               <!-- 购物商品个数的操作地方 -->
               <div class="controls">
-                <input
-                  autocomplete="off"
-                  class="itxt"
-                  v-model="skuNum"
-                  @change="handler"
-                />
+                <input autocomplete="off" class="itxt" v-model="skuNum" @change="handler" />
                 <a href="javascript:" class="plus" @click="skuNum++">+</a>
-                <a
-                  href="javascript:"
-                  class="mins"
-                  @click="skuNum > 1 ? skuNum-- : 1"
-                  >-</a
-                >
+                <a href="javascript:" class="mins" @click="skuNum > 1 ? skuNum-- : 1">-</a>
               </div>
               <div class="add">
                 <!--点击加入购物车按钮:不能用声明式导航,第一个：要发请求（有业务）-->
@@ -296,19 +271,19 @@
         <div class="intro">
           <ul class="tab-wraped">
             <li class="active">
-              <a href="###"> 商品介绍 </a>
+              <a href="###">商品介绍</a>
             </li>
             <li>
-              <a href="###"> 规格与包装 </a>
+              <a href="###">规格与包装</a>
             </li>
             <li>
-              <a href="###"> 售后保障 </a>
+              <a href="###">售后保障</a>
             </li>
             <li>
-              <a href="###"> 商品评价 </a>
+              <a href="###">商品评价</a>
             </li>
             <li>
-              <a href="###"> 手机社区 </a>
+              <a href="###">手机社区</a>
             </li>
           </ul>
           <div class="tab-content">
@@ -364,21 +339,20 @@ export default {
   data() {
     return {
       //控制商品购买个数
-      skuNum: 1,
+      skuNum: 1
     };
   },
   components: {
     ImageList,
-    Zoom,
+    Zoom
   },
   mounted() {
     //派发action:详情模块发请求需要携带商品的id
     this.$store.dispatch("getDetailInfo", this.$route.params.spid);
-    
   },
   computed: {
-    ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
-  },
+    ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"])
+  }
   // methods: {
   //   changeChecked(saleAttrValue, arr) {
   //     console.log(this.skuInfo);

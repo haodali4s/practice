@@ -2,8 +2,6 @@
   <div class="detail">
     <!-- 商品分类导航 -->
     <typenav></typenav>
-
-    <!-- 主要内容区域 -->
     <section class="con">
       <!-- 导航路径区域:面包屑 -->
       <div class="conPoin">
@@ -17,9 +15,9 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom :list="skuInfo.skuImageList" v-if="skuInfo.skuImageList!=null"></Zoom>
+          <Zoom :list="skuInfo.skuImageList" v-if="skuInfo.skuImageList != null"></Zoom>
           <!-- 小图列表 -->
-          <ImageList :list="skuInfo.skuImageList" v-if="skuInfo.skuImageList!=null"></ImageList>
+          <ImageList :list="skuInfo.skuImageList" v-if="skuInfo.skuImageList != null"></ImageList>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -73,12 +71,11 @@
                   changepirce="0"
                   :class="{ active: saleAttrValue.isChecked == 1 }"
                   v-for="(
-                    saleAttrValue, index
-                  ) in saleAttr.spuSaleAttrValueList"
+                      saleAttrValue, index
+                    ) in saleAttr.spuSaleAttrValueList"
                   :key="saleAttrValue.id"
-                  @click="
-                    changeChecked(saleAttrValue, saleAttr.spuSaleAttrValueList)
-                  "
+                  @click="changeChecked(saleAttrValue, saleAttr.spuSaleAttrValueList)
+                      "
                 >{{ saleAttrValue.saleAttrValueName }}</dd>
               </dl>
             </div>
@@ -93,234 +90,6 @@
                 <!--点击加入购物车按钮:不能用声明式导航,第一个：要发请求（有业务）-->
                 <a @click="addOrUpdateCart">加入购物车</a>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 内容详情页 -->
-    <section class="product-detail">
-      <aside class="aside">
-        <div class="tabWraped">
-          <h4 class="active">相关分类</h4>
-          <h4>推荐品牌</h4>
-        </div>
-        <div class="tabContent">
-          <div class="tab-pane active">
-            <ul class="partList">
-              <li>手机</li>
-              <li>手机壳</li>
-              <li>内存卡</li>
-              <li>Iphone配件</li>
-              <li>贴膜</li>
-              <li>手机耳机</li>
-              <li>移动电源</li>
-              <li>平板电脑</li>
-            </ul>
-            <ul class="goodsList">
-              <li>
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/part01.png" />
-                  </div>
-                  <div class="attr">Apple苹果iPhone 6s (A1699)</div>
-                  <div class="price">
-                    <em>¥</em>
-                    <i>6088.00</i>
-                  </div>
-                  <div class="operate">
-                    <a href="javascript:void(0);">加入购物车</a>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/part02.png" />
-                  </div>
-                  <div class="attr">
-                    <em>Apple苹果iPhone 6s (A1699)</em>
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="operate">
-                    <a href="javascript:void(0);">加入购物车</a>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/part03.png" />
-                  </div>
-                  <div class="attr">
-                    <em>Apple苹果iPhone 6s (A1699)</em>
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="operate">
-                    <a href="javascript:void(0);">加入购物车</a>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/part02.png" />
-                  </div>
-                  <div class="attr">
-                    <em>Apple苹果iPhone 6s (A1699)</em>
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="operate">
-                    <a href="javascript:void(0);">加入购物车</a>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/part03.png" />
-                  </div>
-                  <div class="attr">
-                    <em>Apple苹果iPhone 6s (A1699)</em>
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="operate">
-                    <a href="javascript:void(0);">加入购物车</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="tab-pane">
-            <p>推荐品牌</p>
-          </div>
-        </div>
-      </aside>
-      <div class="detail">
-        <div class="fitting">
-          <h4 class="kt">选择搭配</h4>
-          <div class="good-suits">
-            <div class="master">
-              <img src="./images/l-m01.png" />
-              <p>￥5299</p>
-              <i>+</i>
-            </div>
-            <ul class="suits">
-              <li class="suitsItem">
-                <img src="./images/dp01.png" />
-                <p>Feless费勒斯VR</p>
-                <label>
-                  <input type="checkbox" value="39" />
-                  <span>39</span>
-                </label>
-              </li>
-              <li class="suitsItem">
-                <img src="./images/dp02.png" />
-                <p>Feless费勒斯VR</p>
-                <label>
-                  <input type="checkbox" value="50" />
-                  <span>50</span>
-                </label>
-              </li>
-              <li class="suitsItem">
-                <img src="./images/dp03.png" />
-                <p>Feless费勒斯VR</p>
-                <label>
-                  <input type="checkbox" value="59" />
-                  <span>59</span>
-                </label>
-              </li>
-              <li class="suitsItem">
-                <img src="./images/dp04.png" />
-                <p>Feless费勒斯VR</p>
-                <label>
-                  <input type="checkbox" value="99" />
-                  <span>99</span>
-                </label>
-              </li>
-            </ul>
-            <div class="result">
-              <div class="num">已选购0件商品</div>
-              <div class="price-tit">套餐价</div>
-              <div class="price">￥5299</div>
-              <button class="addshopcar">加入购物车</button>
-            </div>
-          </div>
-        </div>
-        <div class="intro">
-          <ul class="tab-wraped">
-            <li class="active">
-              <a href="###">商品介绍</a>
-            </li>
-            <li>
-              <a href="###">规格与包装</a>
-            </li>
-            <li>
-              <a href="###">售后保障</a>
-            </li>
-            <li>
-              <a href="###">商品评价</a>
-            </li>
-            <li>
-              <a href="###">手机社区</a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div id="one" class="tab-pane active">
-              <ul class="goods-intro">
-                <li>分辨率：1920*1080(FHD)</li>
-                <li>后置摄像头：1200万像素</li>
-                <li>前置摄像头：500万像素</li>
-                <li>核 数：其他</li>
-                <li>频 率：以官网信息为准</li>
-                <li>品牌： Apple</li>
-                <li>商品名称：APPLEiPhone 6s Plus</li>
-                <li>商品编号：1861098</li>
-                <li>商品毛重：0.51kg</li>
-                <li>商品产地：中国大陆</li>
-                <li>热点：指纹识别，Apple Pay，金属机身，拍照神器</li>
-                <li>系统：苹果（IOS）</li>
-                <li>像素：1000-1600万</li>
-                <li>机身内存：64GB</li>
-              </ul>
-              <div class="intro-detail">
-                <img src="./images/intro01.png" />
-                <img src="./images/intro02.png" />
-                <img src="./images/intro03.png" />
-              </div>
-            </div>
-            <div id="two" class="tab-pane">
-              <p>规格与包装</p>
-            </div>
-            <div id="three" class="tab-pane">
-              <p>售后保障</p>
-            </div>
-            <div id="four" class="tab-pane">
-              <p>商品评价</p>
-            </div>
-            <div id="five" class="tab-pane">
-              <p>手机社区</p>
             </div>
           </div>
         </div>
@@ -352,58 +121,57 @@ export default {
   },
   computed: {
     ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"])
+  },
+  methods: {
+    changeChecked(saleAttrValue, arr) {
+      //响应式数据:对象、数组
+      //数组的响应式数据:变更、替换【基本类型数据、引用类型对象响应式的】
+      //数组里面是基本类型数据：替换、变更    如果对象，不管你怎么玩都是相应的!!!!
+      //排他操作
+      //底下的代码:修改数组里面的对象【相应的式的】,数据变化视图跟这变化！！！
+      arr.forEach(item => {
+        item.isChecked = "0";
+      });
+      saleAttrValue.isChecked = "1";
+    },
+    //数量的表单元素的change回调
+    handler(e) {
+      //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
+      let value = e.target.value * 1;
+      //用户输入进来非法情况判断
+      if (isNaN(value) || value < 1) {
+        this.skuNum = 1;
+      } else {
+        //正常情况
+        this.skuNum = parseInt(value);
+      }
+    },
+    //加入购物车按钮
+    async addOrUpdateCart() {
+      //派发action:携带的载荷，分别商品的id、商品个数
+      //思考底下的这行代码实质做了一个什么事情?
+      //实质就是调用了小仓库里面相应的这个函数->addOrUpdateCart,声明部分加上asyc,这个函数执行的结构一定是Promise
+      //返回结果是一个Promise对象【三种状态:pending、成功、失败】，返回状态到底是什么，取决于这个函数addOrUpdateCart返回结果
+      try {
+        //成功干什么
+        await this.$store.dispatch("addOrUpdateCart", {
+          skuId: this.$route.params.skuId,
+          skuNum: this.skuNum
+        });
+        //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
+        //浏览器存储功能，在路由跳转在之前，存储到浏览器中
+        // sessionStorage.setItem("SKUINFO", JSON.stringify(this.skuInfo));
+        // //路由跳转
+        // this.$router.push({
+        //   path: "/addcartsuccess",
+        //   query: { skuNum: this.skuNum }
+        // });
+      } catch (error) {
+        //失败干什么
+        alert("加入购物车失败");
+      }
+    }
   }
-  // methods: {
-  //   changeChecked(saleAttrValue, arr) {
-  //     console.log(this.skuInfo);
-  //     //响应式数据:对象、数组
-  //     //数组的响应式数据:变更、替换【基本类型数据、引用类型对象响应式的】
-  //     //数组里面是基本类型数据：替换、变更    如果对象，不管你怎么玩都是相应的!!!!
-  //     //排他操作
-  //     //底下的代码:修改数组里面的对象【相应的式的】,数据变化视图跟这变化！！！
-  //     arr.forEach((item) => {
-  //       item.isChecked = "0";
-  //     });
-  //     saleAttrValue.isChecked = "1";
-  //   },
-  //   //数量的表单元素的change回调
-  //   handler(e) {
-  //     //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
-  //     let value = e.target.value * 1;
-  //     //用户输入进来非法情况判断
-  //     if (isNaN(value) || value < 1) {
-  //       this.skuNum = 1;
-  //     } else {
-  //       //正常情况
-  //       this.skuNum = parseInt(value);
-  //     }
-  //   },
-  //   //加入购物车按钮
-  //   async addOrUpdateCart() {
-  //     //派发action:携带的载荷，分别商品的id、商品个数
-  //     //思考底下的这行代码实质做了一个什么事情?
-  //     //实质就是调用了小仓库里面相应的这个函数->addOrUpdateCart,声明部分加上asyc,这个函数执行的结构一定是Promise
-  //     //返回结果是一个Promise对象【三种状态:pending、成功、失败】，返回状态到底是什么，取决于这个函数addOrUpdateCart返回结果
-  //     try {
-  //       //成功干什么
-  //       await this.$store.dispatch("addOrUpdateCart", {
-  //         skuId: this.$route.params.skuId,
-  //         skuNum: this.skuNum,
-  //       });
-  //       //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
-  //       //浏览器存储功能，在路由跳转在之前，存储到浏览器中
-  //       sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo));
-  //       //路由跳转
-  //       this.$router.push({
-  //         path: "/addcartsuccess",
-  //         query: { skuNum: this.skuNum},
-  //       });
-  //     } catch (error) {
-  //       //失败干什么
-  //       alert("加入购物车失败");
-  //     }
-  //   },
-  // },
 };
 </script>
 

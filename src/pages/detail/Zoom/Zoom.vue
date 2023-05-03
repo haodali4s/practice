@@ -1,10 +1,10 @@
 <template>
   <div class="spec-preview">
-    <img :src="list[0].imgUrl" />
+    <img :src="list[this.index].imgUrl" />
     <!-- 绑定鼠标移动事件 -->
     <div class="event" @mousemove="handler"></div>
     <div class="big">
-      <img :src="list[0].imgUrl" ref="big" />
+      <img :src="list[this.index].imgUrl" ref="big" />
     </div>
     <div class="mask" ref="mask"></div>
   </div>

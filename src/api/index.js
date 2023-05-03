@@ -1,5 +1,5 @@
 //统一管理项目前部的接口
-import {requests,requestsme} from "./requests";
+import { requests, requestsme } from "./requests";
 import mockRequests from './mockRequests';
 import axios from "axios";
 // import mockRequests from './mockRequests';
@@ -16,7 +16,7 @@ export const reqCategory = () => {
 export const reqBannerList = () => mockRequests({ url: '/banner', method: 'get' });
 
 //获取Floor数据接口
-export const reqFloorList = ()=>mockRequests({url:'/floor',method:'get'});
+export const reqFloorList = () => mockRequests({ url: '/floor', method: 'get' });
 
 
 // //搜索模块的请求接口函数:
@@ -26,17 +26,17 @@ export const reqFloorList = ()=>mockRequests({url:'/floor',method:'get'});
 // //没有发现:
 // //第一步:整理搜索的参数
 // //第二步：根据最新的搜索参数，获取最新的数据展示!!
-export const reqSearchList = (data)=>requests({url:'/list',method:'post',data})
+export const reqSearchList = (data) => requests({ url: '/list', method: 'post', data })
 
 
 
 // //详情模块商品的数据
-export const reqDetailList = (skuId)=>
-   requestsme({url:`/item/${skuId}`,method:'get'});
+export const reqDetailList = (skuId) =>
+   requests({ url: `/item/${skuId}`, method: 'get' });
 
 
 // //加入购物车|将来修改商品个数的接口
-// export const reqAddOrUpdateCart = (skuId,skuNum)=>requests({url:`/cart/addToCart/${skuId}/${skuNum}`,method:'post'});
+export const reqAddOrUpdateCart = (skuId, skuNum) => requests({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' });
 
 
 

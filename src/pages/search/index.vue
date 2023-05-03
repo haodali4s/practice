@@ -202,7 +202,6 @@ export default {
       this.getData();
     },
     currentPage(page) {
-      console.log(page);
       this.searchParams.pageNo = page;
       this.getData();
     }

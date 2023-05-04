@@ -7,15 +7,16 @@
       <div class="goods">
         <div class="left-good">
           <div class="left-pic">
-            <img :src="info.skuDefaultImg" />
+            <img :src="pic" />
           </div>
           <div class="right-info">
-            <p class="title">{{info.skuName}}</p>
-            <p class="attr">{{info.skuDesc}}数量:{{$route.query.skuNum}}</p>
+            <p class="title">{{name}}</p>
+            <p class="attr">{{other}}数量:{{num}}</p>
           </div>
         </div>
         <div class="right-gocart">
-          <router-link class="sui-btn btn-xlarge" :to="`/detail/${info.id}`">查看商品详情</router-link>
+          <!-- <router-link class="sui-btn btn-xlarge" :to="`/detail/${info.id}`">查看商品详情</router-link> -->
+          <router-link class="sui-btn btn-xlarge" :to="`/detail/`">查看商品详情</router-link>
           <router-link to="/shopcart">去购物车结算 ></router-link>
         </div>
       </div>
@@ -29,9 +30,19 @@ export default {
   data() {
     return {
       //购物车成功组件，获取会话存储的数据【商品信息】
-      info: JSON.parse(sessionStorage.getItem("SKUINFO")) || {}
+      num:sessionStorage.getItem('num'),
+      pic:sessionStorage.getItem('pic'),
+      name:sessionStorage.getItem('name'),
+      other:sessionStorage.getItem('other'),
     };
+  },
+  mounted(){
+
+    for(var i of Object.keys(sessionStorage)){
+      this.$set(this.info,i,sessionStorage.getItem(i))
+    }
   }
+
 };
 </script>
 

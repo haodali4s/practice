@@ -166,10 +166,29 @@ export default {
         //   path: "/addcartsuccess",
         //   query: { skuNum: this.skuNum }
         // });
+        var attribute={}
+        for(var i of this.spuSaleAttrList){
+       
+          for(var j of i.spuSaleAttrValueList){
+
+            if(j.isChecked=='1'){
+              attribute[j.saleAttrName]=j.saleAttrValueName
+              console.log(attribute)
+              break
+            }
+          }
+        }
+        
+        sessionStorage.setItem('other',attribute.toString())
+        sessionStorage.setItem('name',this.skuInfo.skuDesc)
+        sessionStorage.setItem('num',this.skuNum)
+        sessionStorage.setItem('pic',this.skuInfo.skuDefaultImg)
         this.$router.push({ name: "addcartsuccess" });
+
+     
       } catch (error) {
         //失败干什么
-        alert("加入购物车失败");
+        alert(error);
       }
     }
   }

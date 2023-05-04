@@ -36,7 +36,7 @@ export const reqDetailList = (skuId) =>
 
 
 // //加入购物车|将来修改商品个数的接口
-export const reqAddOrUpdateCart = (skuId, skuNum) => requests({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' });
+export const reqAddOrUpdateCart = (skuId, skuNum) => requestsme({ url: `/cart/${skuId}/${skuNum}`, method: 'post' });
 
 
 

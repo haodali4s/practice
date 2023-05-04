@@ -1,6 +1,6 @@
 //detail模块的小仓库
 // import { reqDetailList, reqAddOrUpdateCart } from '@/api';
-import { reqDetailList,reqAddOrUpdateCart} from '@/api';
+import { reqDetailList, reqAddOrUpdateCart } from '@/api';
 let state = {
      //商品详情的数据
      detailInfo: {}
@@ -15,7 +15,6 @@ let actions = {
      async getDetailInfo({ state, commit, dispatch }, skuId) {
           //商品详情请求，需要携带商品ID
           let result = await reqDetailList(skuId);
-          console.log(result)
           if (result.code == 200) {
                commit('GETDETAILINFO', result.data);
           }
@@ -24,6 +23,7 @@ let actions = {
      async addOrUpdateCart({ state, commit, dispatch }, { skuId, skuNum }) {
           //底下即为：加入购物车(修改商品个数)的请求,参数顺序不能瞎写
           let result = await reqAddOrUpdateCart(skuId, skuNum);
+          console.log(result)
           if (result.code == 200) {
                //如果加入购物车成功,返回promise即为成功
                return "ok";

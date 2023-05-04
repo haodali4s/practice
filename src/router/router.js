@@ -3,7 +3,7 @@ import Vuerouter from "vue-router"
 Vue.use(Vuerouter)
 
 
-
+import addcartsuccess from "@/pages/addcartsuccess/index.vue"
 import Home from "@/pages/home/index.vue"
 import Login from "@/pages/login/index.vue"
 import Register from "@/pages/register/index.vue"
@@ -55,9 +55,18 @@ export default new Vuerouter({
                 show: true
             }
         },
+        {
+            path: '/addcartsuccess',
+            component: addcartsuccess,
+
+            name: 'addcartsuccess',
+            meta: {
+                show: true
+            }
+        },
     ],
-    scrollBehavior(){
-        return {x:0,y:0}
+    scrollBehavior() {
+        return { x: 0, y: 0 }
     }
 
 })

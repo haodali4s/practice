@@ -9,7 +9,35 @@ flask： web框架，通过flask提供的装饰器@server.route()将普通函数
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-
+cartinfo={
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "id": 61,
+            "userId": "2",
+            "skuId": 4,
+            "cartPrice": 5999,
+            "skuNum": 4,
+            "imgUrl": "http://192.168.200.128:8080xxx.jpg",
+            "skuName": "Apple iPhone 11 (A2223) ",
+            "isChecked": 1,
+            "skuPrice": 5999
+        },
+        {
+            "id": 62,
+            "userId": "2",
+            "skuId": 2,
+            "cartPrice": 5499,
+            "skuNum": 1,
+            "imgUrl": "http://192.168.200.128:8080/yyyy.jpg",
+            "skuName": "Apple iPhone 11 (A2223) 64GB 红色",
+            "isChecked": 0,
+            "skuPrice": 5499
+        }
+    ],
+    "ok": 'true'
+}
 item={
     "code": 200,
     "message": "成功",
@@ -129,6 +157,10 @@ item={
     },
     "ok": 'true'
 }
+@app.route('/cart/<var1>/<var2>', methods=["POST"])
+def cart(var1,var2):
+    return cartinfo
+
 @app.route('/item/<var>', methods=["GET"])
 def receive(var):
 

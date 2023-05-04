@@ -166,6 +166,7 @@ export default {
         //   path: "/addcartsuccess",
         //   query: { skuNum: this.skuNum }
         // });
+        this.$router.push({ name: "addcartsuccess" });
       } catch (error) {
         //失败干什么
         alert("加入购物车失败");

@@ -30,7 +30,7 @@ export default {
       handler() {
         this.$nextTick(() => {
           //初始化Swiper类的实例
-          console.log(111);
+
           //初始化Swiper类的实例
           var mySwiper = new Swiper(this.$refs.cur, {
             //设置轮播图防线

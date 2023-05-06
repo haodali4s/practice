@@ -1,7 +1,7 @@
 //对于axios进行二次封装
 import axios from "axios";
 //获取仓库:存储数据
-// import store from "@/store";
+import store from "@/store";
 // //引入进度条
 import nprogress from 'nprogress';
 //引入相关进度条的样式
@@ -29,15 +29,15 @@ requests.interceptors.request.use(config => {
     //进度条开始
     nprogress.start();
 
-    // if (store.state.shopcart.USER_ID) {
-    //     config.headers.userTempId = store.state.shopcart.USER_ID;
-    // }
+    if (store.state.shopcart.USER_ID) {
+        config.headers.userTempId = store.state.shopcart.USER_ID;
+    }
 
     // //token[公共参数]
 
-    // if(store.state.user.token){
-    //     config.headers.token = store.state.user.token;
-    // }
+    if(store.state.user.token){
+        config.headers.token = store.state.user.token;
+    }
 
     //每一次发请求,请求头携带用户临时身份
     // config.headers.userTempId = SET_USERID();
@@ -51,10 +51,10 @@ requests.interceptors.response.use((res) => {
     //res:实质就是项目中发请求、服务器返回的数据
     //进度条结束
     nprogress.done();
-        return res.data;
-    }, (err) => {
-        //温馨提示:某一天发请求,请求失败,请求失败的信息打印出来
-        alert(err.message);
+    return res.data;
+}, (err) => {
+    //温馨提示:某一天发请求,请求失败,请求失败的信息打印出来
+    alert(err.message);
     //终止Promise链
     return new Promise();
 });
@@ -63,15 +63,15 @@ requestsme.interceptors.response.use((res) => {
     //res:实质就是项目中发请求、服务器返回的数据
     //进度条结束
     nprogress.done();
-        return res.data;
-    }, (err) => {
-        //温馨提示:某一天发请求,请求失败,请求失败的信息打印出来
-        alert(err.message);
+    return res.data;
+}, (err) => {
+    //温馨提示:某一天发请求,请求失败,请求失败的信息打印出来
+    alert(err.message);
     //终止Promise链
     return new Promise();
 });
 //最后需要暴露:暴露的是添加新的功能的axios,即为requests
-export  {requests,requestsme}
+export { requests, requestsme }
 
 
 

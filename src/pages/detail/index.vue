@@ -155,7 +155,7 @@ export default {
       try {
         //成功干什么
         await this.$store.dispatch("addOrUpdateCart", {
-          skuId: this.$route.params.skuId,
+          skuId: this.$route.params.spid,
           skuNum: this.skuNum
         });
         //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
@@ -166,26 +166,22 @@ export default {
         //   path: "/addcartsuccess",
         //   query: { skuNum: this.skuNum }
         // });
-        var attribute={}
-        for(var i of this.spuSaleAttrList){
-       
-          for(var j of i.spuSaleAttrValueList){
-
-            if(j.isChecked=='1'){
-              attribute[j.saleAttrName]=j.saleAttrValueName
-              console.log(attribute)
-              break
+        var attribute = {};
+        for (var i of this.spuSaleAttrList) {
+          for (var j of i.spuSaleAttrValueList) {
+            if (j.isChecked == "1") {
+              attribute[j.saleAttrName] = j.saleAttrValueName;
+              break;
             }
           }
         }
-        
-        sessionStorage.setItem('other',attribute.toString())
-        sessionStorage.setItem('name',this.skuInfo.skuDesc)
-        sessionStorage.setItem('num',this.skuNum)
-        sessionStorage.setItem('pic',this.skuInfo.skuDefaultImg)
-        this.$router.push({ name: "addcartsuccess" });
 
-     
+        sessionStorage.setItem("other", JSON.stringify(attribute));
+        sessionStorage.setItem("name", this.skuInfo.skuDesc);
+        sessionStorage.setItem("id", this.skuInfo.id);
+        sessionStorage.setItem("num", this.skuNum);
+        sessionStorage.setItem("pic", this.skuInfo.skuDefaultImg);
+        this.$router.push({ name: "addcartsuccess" });
       } catch (error) {
         //失败干什么
         alert(error);
@@ -349,6 +345,9 @@ export default {
                 border-bottom: 1px solid #bbb;
                 border-left: 1px solid #eee;
 
+                &:hover {
+                  cursor: pointer;
+                }
                 &.active {
                   color: green;
                   border: 1px solid green;
@@ -400,6 +399,9 @@ export default {
 
             .add {
               float: left;
+              &:hover {
+                cursor: pointer;
+              }
 
               a {
                 background-color: #e1251b;

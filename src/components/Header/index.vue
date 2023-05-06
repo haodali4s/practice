@@ -6,10 +6,13 @@
         <div class="container">
           <div class="loginList">
             <p>尚品汇欢迎您！</p>
-            <p>
+            <p v-if="!this.$store.state.user.userdata.name">
               <span>请</span>
-              <a href="###">登录</a>
-              <a href="###" class="register">免费注册</a>
+              <router-link to="/login">登录</router-link>
+              <router-link class="register" to="/register">免费注册</router-link>
+            </p>
+            <p v-else>
+              <router-link to="/login">{{this.$store.state.user.userdata.name}}</router-link>
             </p>
           </div>
           <div class="typeList">
@@ -65,7 +68,6 @@ export default {
         console.log(locations);
       }
       this.$router.push(locations);
-     
     }
     // this.$router.push({path:'/search',query:{keyword:'123'}});
     // this.$router.push('/search/dada');

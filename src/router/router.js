@@ -9,6 +9,8 @@ import Login from "@/pages/login/index.vue"
 import Register from "@/pages/register/index.vue"
 import Search from "@/pages/search/index.vue"
 import Detail from "@/pages/detail/index.vue"
+import Shopcart from "@/pages/shopcart/index.vue"
+
 export default new Vuerouter({
     routes: [
         {
@@ -64,6 +66,15 @@ export default new Vuerouter({
                 show: true
             }
         },
+        {
+            path: '/shopcart',
+            component: Shopcart,
+
+            name: 'shopcart',
+            meta: {
+                show: true
+            }
+        }
     ],
     scrollBehavior() {
         return { x: 0, y: 0 }

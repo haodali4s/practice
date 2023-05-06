@@ -6,7 +6,7 @@ let state = {
      //身份标识符很重要【存储在vuex】
      token: localStorage.getItem("TOKEN"),
      //用户名
-     nickName: ''
+     userdata: ''
 };
 let mutations = {
      GETCODE(state, code) {
@@ -15,8 +15,8 @@ let mutations = {
      SET_TOKEN(state, token) {
           state.token = token;
      },
-     SET_USERINFO(state, nickName) {
-          state.nickName = nickName;
+     SET_USERINFO(state, userdata) {
+          state.userdata = userdata;
      },
      CLEAR(state) {
           //清除仓库相关用户信息
@@ -29,8 +29,11 @@ let mutations = {
 let actions = {
      //获取验证码
      async getCode({ commit, state, dispatch }, phone) {
-          let result = await reqGetCode(phone);
+
+          let result = await reqGetCode(phone)
+
           if (result.code == 200) {
+
                commit('GETCODE', result.data);
                return 'ok';
           } else {
@@ -41,6 +44,7 @@ let actions = {
      //注册用户的地方
      async registerUser({ commit, state, dispatch }, obj) {
           //注册接口没有返回data,不需要提交mutation
+          console.log('1')
           let result = await reqRegister(obj);
           if (result.code == 200) {
                //注册成功
@@ -82,7 +86,7 @@ let actions = {
      async getUserInfo({ commit, state, dispatch }) {
           let result = await reqUserInfo();
           if (result.code == 200) {
-               commit('SET_USERINFO', result.data.nickName);
+               commit('SET_USERINFO', result.data);
                return 'ok';
           } else {
                return Promise.reject();

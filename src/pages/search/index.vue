@@ -111,7 +111,7 @@ export default {
         trademark: "", //品牌的搜索条件
         order: "1:desc", //排序的参数 【默认初始值:1:desc】
         pageNo: 1, //当前分页器的页码  【默认初始值:1】
-        pageSize: 5 //代表当前一页显示几条数据 【默认初始值:10】
+        pageSize: 20 //代表当前一页显示几条数据 【默认初始值:10】
       },
       head: ["综合", "价格", "新品", "销量"],
       currentindex: 0,

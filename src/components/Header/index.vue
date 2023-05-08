@@ -13,11 +13,12 @@
             </p>
             <p v-else>
               <router-link to="/login">{{this.$store.state.user.userdata.name}}</router-link>
+              <a class="register" @click="logout">退出登录</a>
             </p>
           </div>
           <div class="typeList">
-            <a href="###">我的订单</a>
-            <a href="###">我的购物车</a>
+            <router-link to="/shopcart">我的订单</router-link>
+            <router-link to="/shopcart">我的购物车</router-link> 
             <a href="###">我的尚品汇</a>
             <a href="###">尚品汇会员</a>
             <a href="###">企业采购</a>
@@ -68,6 +69,10 @@ export default {
         console.log(locations);
       }
       this.$router.push(locations);
+    },
+    logout() {
+      //派遣action退出登录
+      this.$store.dispatch("logout");
     }
     // this.$router.push({path:'/search',query:{keyword:'123'}});
     // this.$router.push('/search/dada');
@@ -101,10 +106,6 @@ export default {
   //点击搜索按钮之前,如果路径当中有query参数,需要携带给search
 
   // //退出登录的按钮的回调
-  // logout(){
-  //    //派遣action退出登录
-  //    this.$store.dispatch('logout');
-  // }
 
   mounted() {
     //清除关键字
@@ -139,6 +140,10 @@ export default {
             border-left: 1px solid #b3aeae;
             padding: 0 5px;
             margin-left: 5px;
+            &:hover {
+              text-decoration: underline;
+              cursor: pointer;
+            }
           }
         }
       }

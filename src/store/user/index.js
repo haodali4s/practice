@@ -21,7 +21,7 @@ let mutations = {
      CLEAR(state) {
           //清除仓库相关用户信息
           state.token = '';
-          state.nickName = '';
+          state.userdata = '';
           //本地存储令牌清空
           localStorage.removeItem('TOKEN');
      }

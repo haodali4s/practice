@@ -22,7 +22,6 @@ let actions = {
      //加入购物车|将来修改商品个数的地方,右侧是载荷对象【两个K,两个V】
      async addOrUpdateCart({ state, commit, dispatch }, { skuId, skuNum }) {
           //底下即为：加入购物车(修改商品个数)的请求,参数顺序不能瞎写
-          console.log(skuId)
           let result = await reqAddOrUpdateCart(skuId, skuNum);
 
           if (result.code == 200) {

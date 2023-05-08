@@ -73,18 +73,18 @@ export const reqUserLogout = () => requests({ url: `/user/passport/logout`, meth
 
 
 // //获取用户地址信息
-// export const reqAddressInfo = ()=>requests({url:`/user/userAddress/auth/findUserAddressList`,method:'get'});
+export const reqAddressInfo = ()=>requests({url:`/user/userAddress/auth/findUserAddressList`,method:'get'});
 
 
 // //获取商品清单数据
-// export const reqShopInfo = ()=>requests({url:`/order/auth/trade`,method:'get'});
+export const reqShopInfo = ()=>requests({url:`/order/auth/trade`,method:'get'});
 
 
-// //提交订单接口
-// export const reqSubmitOrder = (tradeNo,data)=>requests({url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,method:'post',data});
+//提交订单接口
+export const reqSubmitOrder = (tradeNo,data)=>requests({url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,method:'post',data});
 
 // //获取支付信息接口
-// export const reqPayInfo = (orderId)=>requests({url:`/payment/weixin/createNative/${orderId}`,method:'get'});
+export const reqPayInfo = (orderId)=>requests({url:`/payment/weixin/createNative/${orderId}`,method:'get'});
 
 // //查询支付结果
 // export const reqPayResult = (orderId)=>requests({url:`/payment/weixin/queryPayStatus/${orderId}`,method:'get'});

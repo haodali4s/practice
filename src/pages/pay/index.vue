@@ -132,8 +132,8 @@
 
 <script>
 //引入二维码插件
-// import QRCode from "qrcode";
-import { reqPayInfo } from "@/api/index.js";
+import QRCode from "qrcode";
+import { reqPayInfo, reqPayResult } from "@/api/index.js";
 export default {
   name: "Pay",
   data() {
@@ -152,9 +152,8 @@ export default {
   methods: {
     //立即支付按钮
     async open() {
-      console.log(1);
       //生成一个二维码URL
-      // let url = await QRCode.toDataURL(this.payInfo.codeUrl);
+      let url = await QRCode.toDataURL(this.payInfo.codeUrl);
       //第一个参数:即为内容区域
       //第二个参数:标题
       //第三个参数:组件的配置项
@@ -177,7 +176,7 @@ export default {
             //关闭盒子
             done();
             //路由跳转
-            this.$router.push("/paysuccess");
+            this.$router.push("/success");
           } else if (action == "cancel" && this.code != 200) {
             //清除定时器
             clearInterval(this.timer);
@@ -190,7 +189,7 @@ export default {
       //查询支付结果,开启定时器每隔一段时间询问支付结果
       this.timer = setInterval(async () => {
         //发请求获取支付结果
-        let result = await this.$http.reqPayResult(this.payInfo.orderId);
+        let result = await reqPayResult(this.payInfo.orderId);
         //返回数据当中：code=200代表支付成功  code=205未支付
         if (result.code == 200) {
           //支付成功了

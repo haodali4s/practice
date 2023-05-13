@@ -12,6 +12,11 @@ import Search from "@/pages/search/index.vue"
 import Detail from "@/pages/detail/index.vue"
 import Shopcart from "@/pages/shopcart/index.vue"
 import Pay from "@/pages/pay/index.vue"
+import Success from "@/pages/paysuccess/index.vue"
+import Center from "@/pages/center/index.vue"
+import myorder from "@/pages/center/myOrder/index.vue"
+import teamorder from "@/pages/center/teamOrder/index.vue"
+
 let router = new Vuerouter({
     routes: [
         {
@@ -99,7 +104,35 @@ let router = new Vuerouter({
             meta: {
                 show: false
             }
-        }
+        },
+        {
+            path: '/success',
+            component: Success,
+
+            name: 'success',
+            meta: {
+                show: false
+            }
+        },
+        {
+            path: '/center',
+            component: Center,
+
+            name: 'center',
+            meta: {
+                show: true
+            },
+            children: [
+                {
+                    path: "myorder",
+                    component: myorder
+                },
+                {
+                    path: "teamorder",
+                    component: teamorder
+                }
+            ]
+        },
     ],
     scrollBehavior() {
         return { x: 0, y: 0 }
@@ -141,6 +174,7 @@ router.beforeEach(async (to, from, next) => {
                     //token【学生证失效了】
                     //token失效:本地清空数据、服务器的token通知服务器清除
                     await store.dispatch('logout');
+                    alert('111')
                     //回到登录页，重新获取一个新的学生证
                     next('/login');
                 }

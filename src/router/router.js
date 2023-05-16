@@ -42,11 +42,11 @@ let router = new Vuerouter({
             path: '/trade',
             component: Trade,
             beforeEnter(to, from, next) {
-                if (localStorage.getItem('TOKEN')) {
+                if (from.path == '/shopcart') {
                     next()
                 }
                 else {
-                    alert('请先登录')
+                    next(false)
                 }
             },
             meta: {
@@ -101,6 +101,14 @@ let router = new Vuerouter({
             component: Pay,
 
             name: 'pay',
+            beforeEnter(to, from, next) {
+                if (from.path == '/trade') {
+                    next()
+                }
+                else {
+                    next(false)
+                }
+            },
             meta: {
                 show: false
             }
@@ -130,7 +138,11 @@ let router = new Vuerouter({
                 {
                     path: "teamorder",
                     component: teamorder
-                }
+                },
+                {
+                    path: "/center",
+                    redirect: "/center/myorder"
+                },
             ]
         },
     ],
@@ -164,7 +176,6 @@ router.beforeEach(async (to, from, next) => {
             if (hasNickName) {
                 next();
             } else {
-                //用户登陆了,但是没有用户信息 
                 try {
                     //发请求获取用户信息以后在放行
                     await store.dispatch('getUserInfo');
@@ -174,14 +185,20 @@ router.beforeEach(async (to, from, next) => {
                     //token【学生证失效了】
                     //token失效:本地清空数据、服务器的token通知服务器清除
                     await store.dispatch('logout');
-                    alert('111')
+
                     //回到登录页，重新获取一个新的学生证
                     next('/login');
                 }
+                // await store.dispatch('logout');
             }
         }
     } else {
-        next()
+        if (to.path.indexOf('trade') != -1 || to.path.indexOf('pay') != -1 || to.path.indexOf('center') != -1) {
+            next('/login?redirect=' + to.path);
+        }
+        else {
+            next()
+        }
         //用户未登录||目前的判断都是放行.将来这里会'回手掏'增加一些判断
         //用户未登录:不能进入/trade、/pay、/paysuccess、/center、/center/myorder  /center/teamorder
         // let toPath = to.path;

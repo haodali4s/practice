@@ -96,12 +96,11 @@ export default {
       const { phone, password } = this;
       //在发登录请求
       try {
-        console.log({ phone, password });
         //登录成功
         await this.$store.dispatch("userLogin", { phone, password });
-
+        let topath = this.$route.query.redirect || "/home";
         //跳转到首页
-        this.$router.push("/home");
+        this.$router.push(topath);
       } catch (error) {
         alert(error.message);
       }

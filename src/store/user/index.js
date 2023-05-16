@@ -89,7 +89,7 @@ let actions = {
                commit('SET_USERINFO', result.data);
                return 'ok';
           } else {
-               return Promise.reject();
+               return Promise.reject(result.code);
           }
      },
      //退出登录的业务

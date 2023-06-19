@@ -3,17 +3,7 @@ import Vuerouter from "vue-router"
 Vue.use(Vuerouter)
 
 import store from '../store'
-import addcartsuccess from "@/pages/addcartsuccess/index.vue"
-import Home from "@/pages/home/index.vue"
-import Trade from "@/pages/trade/index.vue"
-import Login from "@/pages/login/index.vue"
-import Register from "@/pages/register/index.vue"
-import Search from "@/pages/search/index.vue"
-import Detail from "@/pages/detail/index.vue"
-import Shopcart from "@/pages/shopcart/index.vue"
-import Pay from "@/pages/pay/index.vue"
-import Success from "@/pages/paysuccess/index.vue"
-import Center from "@/pages/center/index.vue"
+
 import myorder from "@/pages/center/myOrder/index.vue"
 import teamorder from "@/pages/center/teamOrder/index.vue"
 
@@ -25,7 +15,7 @@ let router = new Vuerouter({
         },
         {
             path: '/home',
-            component: Home,
+            component: () => import("@/pages/home/index.vue"),
             name: 'home',
             meta: {
                 show: true
@@ -33,16 +23,17 @@ let router = new Vuerouter({
         },
         {
             path: '/login',
-            component: Login,
+            component: () => import("@/pages/login/index.vue"),
             meta: {
                 show: false
             }
         },
         {
             path: '/trade',
-            component: Trade,
+            component: () => import("@/pages/trade/index.vue"),
             beforeEnter(to, from, next) {
-                if (from.path == '/shopcart') {
+                console.log(from.path)
+                if (from.path == '/shopcart' || from.path == '/login') {
                     next()
                 }
                 else {
@@ -55,14 +46,14 @@ let router = new Vuerouter({
         },
         {
             path: '/register',
-            component: Register,
+            component: () => import("@/pages/register/index.vue"),
             meta: {
                 show: false
             }
         },
         {
             path: '/search/:keyword?',
-            component: Search,
+            component: () => import("@/pages/search/index.vue"),
 
             name: 'search',
             meta: {
@@ -71,7 +62,7 @@ let router = new Vuerouter({
         },
         {
             path: '/detail/:spid',
-            component: Detail,
+            component: () => import("@/pages/detail/index.vue"),
 
             name: 'detail',
             meta: {
@@ -80,7 +71,7 @@ let router = new Vuerouter({
         },
         {
             path: '/addcartsuccess',
-            component: addcartsuccess,
+            component: () => import("@/pages/addcartsuccess/index.vue"),
 
             name: 'addcartsuccess',
             meta: {
@@ -89,7 +80,7 @@ let router = new Vuerouter({
         },
         {
             path: '/shopcart',
-            component: Shopcart,
+            component: () => import("@/pages/shopcart/index.vue"),
 
             name: 'shopcart',
             meta: {
@@ -98,7 +89,7 @@ let router = new Vuerouter({
         },
         {
             path: '/pay',
-            component: Pay,
+            component: () => import("@/pages/pay/index.vue"),
 
             name: 'pay',
             beforeEnter(to, from, next) {
@@ -115,16 +106,24 @@ let router = new Vuerouter({
         },
         {
             path: '/success',
-            component: Success,
+            component: () => import("@/pages/paysuccess/index.vue"),
 
             name: 'success',
             meta: {
                 show: false
-            }
+            },
+            beforeEnter(to, from, next) {
+                if (from.path == '/pay') {
+                    next()
+                }
+                else {
+                    next(false)
+                }
+            },
         },
         {
             path: '/center',
-            component: Center,
+            component: () => import("@/pages/center/index.vue"),
 
             name: 'center',
             meta: {

@@ -5,7 +5,7 @@
       <div class="top">
         <div class="container">
           <div class="loginList">
-            <p>尚品汇欢迎您！</p>
+            <p>京西商城欢迎您！</p>
             <p v-if="!this.$store.state.user.userdata.name">
               <span>请</span>
               <router-link to="/login">登录</router-link>
